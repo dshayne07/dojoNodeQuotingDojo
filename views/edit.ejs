@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotes</title>
+</head>
+<body>
+    <h1>Edit <%= quote[0].name %>'s quote!</h1>
+    <form method="post" action="/edit/<%= quote[0]._id %>">
+        <textarea name="quote"><%= quote[0].quote %></textarea><br>
+        <input type="submit" value="Edit Quote">
+    </form>
+    <a href="/">Go Back</a>
+    
+</body>
+</html>

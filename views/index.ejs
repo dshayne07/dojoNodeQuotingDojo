@@ -17,6 +17,12 @@
         </form>
 
     </fieldset>
+    <h1>Here are the awesome quotes!</h1>
+    <% for (var x in quotes) { %>
+    "<%= quotes[x].quote %>" by <a href="/user/<%= quotes[x].name %>"><%= quotes[x].name %></a> at <%= quotes[x].createdAt %><br>
+    <a href="/edit/<%= quotes[x]._id %>">Edit</a> <a href="/delete/<%= quotes[x]._id %>">Delete</a>
+    <hr>
+    <% } %>
     
 </body>
 </html>

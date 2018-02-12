@@ -7,9 +7,10 @@
     <title>Quotes</title>
 </head>
 <body>
-    <h1>Here are the awesome quotes!</h1>
+    <h1>Here are the awesome quotes from <%= quotes[0].name %>!</h1>
     <% for (var x in quotes) { %>
-    "<%= quotes[x].quote %>" by <%= quotes[x].name %><br>
+    "<%= quotes[x].quote %>" by <%= quotes[x].name %> at <%= quotes[x].createdAt %><br>
+    <a href="/edit/<%= quotes[x]._id %>">Edit</a> <a href="/delete/<%= quotes[x]._id %>">Delete</a>
     <hr>
     <% } %>
     <a href="/">Go Back</a>

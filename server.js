@@ -23,7 +23,11 @@ mongoose.model('Quote', QuoteSchema);
 var Quote = mongoose.model('Quote');
 // root route to render the index.ejs view
 app.get('/', function(req, res) {
-    res.render("index");
+    Quote.find({}, function(err, quotes) {
+        // Retrieve an array of quotes
+        // This code will run when the DB is done attempting to retrieve all matching records to {}
+        res.render('index', {quotes: quotes});
+    }).sort({_id:-1});
 });
 // post route for inserting the quote into the database
 app.post('/quotes', function(req, res) {
@@ -36,16 +40,29 @@ app.post('/quotes', function(req, res) {
         console.log('something went wrong');
     } else { // else console.log that we did well and then redirect to the quotes route
         console.log('successfully added a quote!');
-        res.redirect('/quotes');
+        res.redirect('/');
     }
     })
 });
-app.get('/quotes', function(req, res) {
-    Quote.find({}, function(err, quotes) {
-        // Retrieve an array of quotes
-        // This code will run when the DB is done attempting to retrieve all matching records to {}
+app.get('/user/:name' , function(req, res) {
+    Quote.find({name:req.params.name}, function(err, quotes){
         res.render('quotes', {quotes: quotes});
-    })
+    }).sort({id:-1});
+});
+app.get('/edit/:id', function(req, res){
+    Quote.find({_id:req.params.id}, function(err, quote){
+        res.render('edit', {quote:quote})
+    });
+});
+app.post('/edit/:id', function(req,res){
+    Quote.update({_id:req.params.id}, {quote:req.body.quote}, function(err){
+        res.redirect('/');
+    });
+});
+app.get('/delete/:id', function(req,res){
+    Quote.remove({_id:req.params.id}, function(err){
+        res.redirect('/');
+    });
 });
 // tell the express app to listen on port 8000
 app.listen(8000, function() {
